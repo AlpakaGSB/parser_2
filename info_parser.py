@@ -112,7 +112,7 @@ class Parser:
                     self.driver.switch_to.window(parent_handle)
                     continue
 
-                sleep(random.uniform(1.2, 2.8))  # стабилизация DOM
+                sleep(random.uniform(0.8, 1.6))  # стабилизация DOM
 
                 soup = BeautifulSoup(self.driver.page_source, 'html.parser')
 
