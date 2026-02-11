@@ -52,7 +52,6 @@ def parse_one(url):
 
         row = {'href': url}
 
-        # Твой проверенный блок парсинга
         try:
             row['name'] = soup.find('h1', class_='orgpage-header-view__header').get_text(strip=True)
         except:
@@ -156,8 +155,8 @@ if __name__ == "__main__":
         print("Ссылок нет — выход")
         exit(0)
 
-    # Логика продолжения с места остановки (учитывая 2000 уже спаршенных)
-    last_file = 'result_output/legal_intermediate_2000.csv'  # ← подставь имя твоего последнего файла (или full.csv)
+    # Логика продолжения с места остановки цццццццц
+    last_file = 'legal_full_2026-01-20_23-28-59.csv'  # ← имя последнего файла
     done_hrefs = set()
 
     if os.path.exists(last_file):
@@ -170,4 +169,4 @@ if __name__ == "__main__":
     print(f"Оставшиеся для парсинга: {len(hrefs)}")
 
     # Запуск многопоточного парсинга
-    parse_data(hrefs, type_org, max_workers=4)  # 4 потока — оптимально для старта, можно увеличить до 6–8
+    parse_data(hrefs, type_org, max_workers=4)  # 4 потока — оптимально, можно увеличить до 6–8

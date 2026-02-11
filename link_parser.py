@@ -20,7 +20,7 @@ class LinksCollector:
     def __init__(self,
                  driver,
                  link='https://yandex.ru/maps',
-                 max_attempts_without_new=40,
+                 max_attempts_without_new=25,
                  accept_button=ACCEPT_BUTTON,
                  accept=True):
         self.driver = driver
@@ -47,7 +47,7 @@ class LinksCollector:
                 except:
                     pass
 
-            # Поле ввода поиска (самый надёжный селектор на начало 2026)
+
             search_input = WebDriverWait(self.driver, 15).until(
                 EC.presence_of_element_located((By.CSS_SELECTOR, 'input.input__control'))
             )
@@ -94,7 +94,7 @@ class LinksCollector:
 
                 print(f"Найдено wrapper-элементов: {len(wrapper_elements)}")
 
-                # 3. Из них достаём ссылки (как в твоём примере из ноутбука)
+                # 3. Из них достаём ссылки
                 link_elements = self.driver.find_elements(
                     By.CSS_SELECTOR,
                     "a.link-overlay[href^='/maps/org/']"
@@ -129,7 +129,7 @@ class LinksCollector:
                 else:
                     attempts_without_new = 0
 
-                # Самый важный момент — скролл к последнему видимому wrapper-элементу
+                # скролл к последнему видимому wrapper-элементу
                 if wrapper_elements:
                     last_wrapper = wrapper_elements[-1]
                     self.driver.execute_script(
@@ -167,11 +167,10 @@ if __name__ == "__main__":
     type_org_ru = type_org_mapping.get(type_org, "Юридические услуги")
 
     # Для теста оставляем один район
-    # После успешного теста раскомментируй districts
-    test_districts = ["Академический район"]  # ← меняй здесь для теста
+    test_districts = ["Южнопортовый район"]  # ← меняй здесь для теста
 
     for district in test_districts:
-        # Настройки браузера (как в ноутбуке)
+        # Настройки браузера
         chrome_options = Options()
         prefs = {"profile.managed_default_content_settings.images": 2}  # без изображений
         chrome_options.add_experimental_option("prefs", prefs)

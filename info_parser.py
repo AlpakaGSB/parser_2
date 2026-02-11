@@ -68,14 +68,12 @@ class Parser:
             print("Список ссылок пустой")
             return
 
-        # Для теста можно ограничить количество
-        # hrefs = hrefs[:30]  # ← раскомментируй для проверки
 
         self.driver.get('https://yandex.ru/maps')
         sleep(random.uniform(2, 4))
         parent_handle = self.driver.current_window_handle
 
-        # Твой словарь из ноутбука
+        # Словарь
         keys = {
             'href': [],
             'name': [],
@@ -116,7 +114,6 @@ class Parser:
 
                 soup = BeautifulSoup(self.driver.page_source, 'html.parser')
 
-                # Твой проверенный блок парсинга — без изменений
                 keys['href'].append(url)
 
                 try:
@@ -242,7 +239,7 @@ if __name__ == "__main__":
                 data = json.load(f)
                 hrefs = data.get('links', [])
                 all_hrefs.extend(hrefs)
-
+    print(f"Всего ссылок: {len(all_hrefs)}")
     all_hrefs = list(dict.fromkeys(all_hrefs))  # убираем дубликаты
     print(f"Всего уникальных ссылок: {len(all_hrefs)}")
     #all_hrefs = hrefs[:10]
